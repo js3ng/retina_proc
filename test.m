@@ -1,0 +1,10 @@
+clear; clc;
+im = imread('peppers.png');
+figure(1);
+imshow(im);
+green_thres = 100;
+green = im(:,:,2) >= green_thres;
+green_im = zeros(size(im,1),size(im,2),3);
+green_im(:,:,2) = 255*green;
+figure(2);
+imshow(green_im);
