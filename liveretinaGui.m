@@ -686,6 +686,12 @@ while get(hObject,'Value') == 1.0
     imagesc(i_f, 'Parent',handles.in_axes);
     imagesc(s_f, 'Parent',handles.spatial_axes);
     imagesc(rbg_f, 'Parent',handles.st_axes);
+    set(handles.in_axes,'Xtick',[]);
+    set(handles.in_axes,'Ytick',[]);
+    set(handles.spatial_axes,'Xtick',[]);
+    set(handles.spatial_axes,'Ytick',[]);
+    set(handles.st_axes,'Xtick',[]);
+    set(handles.st_axes,'Ytick',[]);
     colormap(gray);
     drawnow;
     spatial_past = s_f;
