@@ -1,5 +1,5 @@
 %%%%%%% LIVE RETINA EMULATION USING USB CAMERA %%%%%%% 
-%%% test
+
 clear;clc;  
 cam = webcam;
 vidSize = [320 240];
