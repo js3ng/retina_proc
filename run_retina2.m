@@ -2,7 +2,7 @@
 
 clear;clc;  
 
-in = '../example_video/fil_cat.avi';
+in = '../../example_video/fil_cat.avi';
 % in = '../john_data/ATIS/00193.avi';
 % in = '../john_data/DAVIS/1/Tom1.avi';
 height = 128;
@@ -21,7 +21,7 @@ divMode = [4 1; 2 1; 4 1;1 3]; %first col: fMode, second col: shMode
 gaussSize = 7;
 std = 2;
 %write out-mode
-arrW = 0; %array write
+arrW = 2; %array write
 figW = 0; %figure write
 
 %random initial frame
@@ -136,19 +136,19 @@ elseif arrW == 2
     imagesc(st_vid(:,:,frame));
     colormap(gray);
     title('Spatiotemporal output, low pass filter (Gaussian), threshold  = I_{max}/20');
-    saveas(gcf, './figs/glpf_wdeadPix_satPix_st.png');
+    saveas(gcf, '../figs/glpf_wdeadPix_satPix_st.png');
     
     figure(6);
     imagesc(s_vid(:,:,frame));
     colormap(gray);
     title('Spatial output, low pass filter (Gaussian)');
-    saveas(gcf, './figs/glpf_wdeadPix_satPix_s.png');
+    saveas(gcf, '../figs/glpf_wdeadPix_satPix_s.png');
     
     figure(5);
     imagesc(i_vid(:,:,frame));
     colormap(gray);
     title('input with dead/saturated pixels');
-    saveas(gcf, './figs/glpf_wdeadPix_satPix_in.png');
+    saveas(gcf, '../figs/glpf_wdeadPix_satPix_in.png');
 end
 % for ii = 1:nFrames
 %     imagesc(rgb_vid(:,:,:,ii));

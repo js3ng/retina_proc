@@ -38,7 +38,11 @@ open(v);
 for ii = 2:numFrames
     set(im(1),'cdata',in1(:,:,ii));
     set(im(2),'cdata',in2(:,:,ii));
-    set(im(3),'cdata',in3(:,:,ii));
+    if mode == 2
+        set(im(3),'cdata',in3(:,:,:,ii));
+    else
+        set(im(3),'cdata',in3(:,:,ii));
+    end
     drawnow;
     if mode == 1
         frame = getframe(gcf);

@@ -2,7 +2,7 @@
 
 clear;clc;  
 
-inVid = '../example_video/fil_cat.avi';
+inVid = '../../example_video/fil_cat.avi';
 imHeight = 128;
 imWidth = 96;
 nFrames = 150;
@@ -10,13 +10,13 @@ nFrames = 150;
 %%%set model modes%%%
 filtMode = 2; %LPF mode - 1: 4NN average, 3: 9NN average, 2: adjustable Gaussian
 sh_mode = 1; %1: LPF, 2: HPF, 3: NF
-enDiv = 0; %partion filtering
+enDiv = 1; %partiton filtering
 divMode = [4 1; 2 1; 4 1;1 3]; %first col: fMode, second col: shMode
 gaussSize = 7;
 std = 2;
 %write out-mode
 arrW = 0; %array write
-figW = 0; %figure write
+figW = 2; %1: figure write  2: RGB vid (3rd argument only)
 
 %%%set non-uniformities%%%
 %threshold nu
@@ -41,3 +41,15 @@ satPixPR = .999;
     pix_mean, pix_var, ...
     deadPixPR, satPixPR, ...
     figW, arrW );
+
+clear st_in
+
+%set third argument based on figW
+
+if figW == 2 
+    st_in = rgb_vid;
+else
+    st_in = st_vid;
+end;
+
+fig = fig_show(i_vid, s_vid, st_in, '../output_videos/glpf_wdeadPix_satPix.mp4', figW);

@@ -16,9 +16,9 @@ x0=x0+dx+0.05;
 ax(3).Position=[x0 y0 dx dy];
 
 
-im(1)=imagesc(uint8(in1(:,:)),'Parent',ax(1));
-im(2)=imagesc(uint8(in2(:,:)),'Parent',ax(2));
-im(3)=imagesc(uint8(in3(:,:)),'Parent',ax(3));
+im(1)=imagesc(uint8(in1),'Parent',ax(1));
+im(2)=imagesc(uint8(in2),'Parent',ax(2));
+im(3)=imagesc(uint8(in3),'Parent',ax(3));
 
 colormap(gray);
 

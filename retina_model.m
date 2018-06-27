@@ -79,40 +79,7 @@ for ii = 1:nFrames
     s_vid(:,:,ii) = uint8(spatial_out);
     st_vid(:,:,ii) = uint8(outFrame);
 end
-
-if arrW == 1
-    filtOut = VideoWriter('nofilt.avi');
-    tempOut = VideoWriter('eventout_nofilt.avi');
-    filtOut.FrameRate = 10;
-    tempOut.FrameRate = 10;
-    open(filtOut);
-    open(tempOut);
-    for ii = 1:size(in_dat,3)
-        writeVideo(tempOut,st_vid(:,:,ii));
-        writeVideo(filtOut,s_vid(:,:,ii));
-    end
-    close(tempOut);
-    close(filtOut);
-elseif arrW == 2
-    frame = 30;
-    figure(4);
-    imagesc(st_vid(:,:,frame));
-    colormap(gray);
-    title('Spatiotemporal output, low pass filter (Gaussian), threshold  = I_{max}/20');
-    saveas(gcf, './figs/glpf_wdeadPix_satPix_st.png');
-    
-    figure(6);
-    imagesc(s_vid(:,:,frame));
-    colormap(gray);
-    title('Spatial output, low pass filter (Gaussian)');
-    saveas(gcf, './figs/glpf_wdeadPix_satPix_s.png');
-    
-    figure(5);
-    imagesc(i_vid(:,:,frame));
-    colormap(gray);
-    title('input with dead/saturated pixels');
-    saveas(gcf, './figs/glpf_wdeadPix_satPix_in.png');
-end
+ 
 % for ii = 1:nFrames
 %     imagesc(rgb_vid(:,:,:,ii));
 %     pause(1/10);

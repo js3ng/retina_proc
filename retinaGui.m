@@ -257,7 +257,7 @@ function run_button_Callback(hObject, eventdata, handles)
 
 enDiv = 0; %partion filtering
 divMode = [4 1; 2 1; 4 1;1 3];
-in_vid_path = '../example_video/fil_cat.avi';
+in_vid_path = '../../example_video/fil_cat.avi';
 deadpix_PR = 1-handles.deadpix_PR;
 satpix_PR = 1-handles.satpix_PR;
 

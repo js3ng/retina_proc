@@ -13,7 +13,6 @@ divMode = [4 1; 2 1; 4 1;1 3]; %first col: fMode, second col: shMode
 gaussSize = 7;
 std = 2;
 %write out-mode
-arrW = 0; %array write
 figW = 0; %figure write
 
 %random initial frame
@@ -47,6 +46,8 @@ satPix=zeros(vidSize(1),vidSize(2));
 r=rand(vidSize(1),vidSize(2));
 satPix = (r<(1-satPixPR)/2);
 
+%st set
+colorVidEn = 1;
 
 for ii =1:Frames
     rgbImage = snapshot(cam);
@@ -60,45 +61,13 @@ for ii =1:Frames
          imWidth, filtMode, ...
          sh_mode, enDiv, divMode, gaussSize, std, thresh1_arr, ...
          thresh2_arr, pix_nu, deadPix, satPix );
-     figure(1) = fig_show_live(i_f, s_f, st_f);
-%      if ii == 1
-%          fig=figure(1);
-%          fig.Units='normalize';
-%          fig.Position=[0 0 1 1];
-%          ax(1)=axes;
-%          ax(2)=axes;
-%          ax(3)=axes;
-%          x0=0.075;
-%          y0=0.325;
-%          dx=0.25;
-%          dy=0.35;
-%          ax(1).Position=[x0 y0 dx dy];
-%          x0=x0+dx+0.05;
-%          ax(2).Position=[x0 y0 dx dy];
-%          x0=x0+dx+0.05;
-%          ax(3).Position=[x0 y0 dx dy];
-%          
-%          
-%          im(1)=imagesc(uint8(in1),'Parent',ax(1));
-%          im(2)=imagesc(uint8(in2),'Parent',ax(2));
-%          im(3)=imagesc(uint8(in3),'Parent',ax(3));
-%          
-%          colormap(gray);
-%          
-%          set(ax(1),'XTick',[],'YTick',[]);
-%          set(ax(2),'XTick',[],'YTick',[]);
-%          set(ax(3),'XTick',[],'YTick',[]);
-%          
-%          ax(1).Title.String='Input video';
-%          ax(2).Title.String='Spatial output';
-%          ax(3).Title.String='Spatio-temporal output';
-%      else
-%          set(im(1),'cdata',in1);
-%          set(im(2),'cdata',in2);
-%          set(im(3),'cdata',in3);
-%          drawnow;
-%          pause(1/20);
-%      end;
+     clear st_in
+     if colorVidEn == 1
+         st_in = rgb_vid;
+     else
+         st_in = st_vid;
+     end
+     figure(1) = fig_show_live(i_f, s_f, st_in);
 end
 
 clear('cam');
