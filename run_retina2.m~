@@ -16,12 +16,12 @@ in_dat = double(readVideo_rs(in, height, width, nFrames)); %read in video file s
 %%%set model modes%%%
 filtMode = 4; %LPF mode - 1: 4NN average, 2: 9NN average, 3: 9member Gaussian, 4: adjustable Gaussian
 sh_mode = 1; %1: LPF, 2: HPF, 3: NF
-enDiv = 0; %partion filtering
+enDiv = 1; %partion filtering
 divMode = [4 1; 2 1; 4 1;1 3]; %first col: fMode, second col: shMode
 gaussSize = 7; %NxN Gaussian
 std = 2; 
 %write out-mode
-arrW = 0; %array write
+arrW = 2; %array write
 figW = 0; %figure write
 
 %random initial frame
@@ -51,18 +51,18 @@ satPixPR = .999;  %1-satPixPR percent of pixels = stuck high
 satPix = (r<(1-satPixPR)/2);
 
 for ii = 1:nFrames
-    in_var = in_dat(:,:,ii) + pix_nu; % input frame with input non-uniformities
+    in_var = in_dat(:,:,ii) + pix_nu;
     in_var(deadPix) = 0; 
     in_var(satPix) = 255; 
     outFrame = zeros(size(in_dat,1),size(in_dat,2));
     p = zeros(floor(size(in_dat,1)/2)+2,floor(size(in_dat,2)/2)+2,4);
-    if enDiv == 1 % enable divided processing on frame
-        p(:,:,1) = padarray(in_var(1:floor(size(in_dat,1)/2),1:floor(size(in_dat,2)/2)),[1 1],0); % pad +/+ quadrant
-        p(:,:,2) = padarray(in_var(1:floor(size(in_dat,1)/2),ceil(size(in_dat,2)/2)+1:end),[1 1], 0); % pad +/- quadrant
-        p(:,:,3) = padarray(in_var(ceil(size(in_dat,1)/2)+1:end,1:floor(size(in_dat,2)/2)),[1 1], 0); % pad -/+ quadrant
-        p(:,:,4) = padarray(in_var(ceil(size(in_dat,1)/2)+1:end,ceil(size(in_dat,2)/2)+1:end),[1 1], 0); % pad -/- quadrant
+    if enDiv == 1
+        p(:,:,1) = padarray(in_var(1:floor(size(in_dat,1)/2),1:floor(size(in_dat,2)/2)),[1 1],0);
+        p(:,:,2) = padarray(in_var(1:floor(size(in_dat,1)/2),ceil(size(in_dat,2)/2)+1:end),[1 1], 0);
+        p(:,:,3) = padarray(in_var(ceil(size(in_dat,1)/2)+1:end,1:floor(size(in_dat,2)/2)),[1 1], 0);
+        p(:,:,4) = padarray(in_var(ceil(size(in_dat,1)/2)+1:end,ceil(size(in_dat,2)/2)+1:end),[1 1], 0);
         for jj = 1:4
-            if divMode(jj,1) == 1 %set 
+            if divMode(jj,1) == 1
                 lowFilt = [0 1/8 0; 1/8 1/2 1/8; 0 1/8 0];
             elseif divMode(jj,1) == 2
                 lowFilt = 1/16*[1 2 1; 1 2 1; 1 2 1];
@@ -79,7 +79,7 @@ for ii = 1:nFrames
                 p_f(:,:,jj) = p(:,:,jj);
             end
         end
-        spatial_out = [p_f(2:end-1,2:end-1,1) p_f(2:end-1,2:end-1,2); p_f(2:end-1,2:end-1,3) p_f(2:end-1,2:end-1,4)]; %concantenate result frames
+        spatial_out = [p_f(2:end-1,2:end-1,1) p_f(2:end-1,2:end-1,2); p_f(2:end-1,2:end-1,3) p_f(2:end-1,2:end-1,4)];
     else
         if filtMode == 1
             lowFilt = [0 1/8 0; 1/8 1/2 1/8; 0 1/8 0];
@@ -100,7 +100,7 @@ for ii = 1:nFrames
     end
     
     if ii == 1
-        temp_out = zeros(height,width); 
+        temp_out = zeros(height,width);
     else
         temp_out = spatial_out - spatial_past;
     end    
@@ -154,4 +154,4 @@ end
 %     imagesc(rgb_vid(:,:,:,ii));
 %     pause(1/10);
 % end
-fig = fig_show(i_vid, s_vid, st_vid, '../output_videos/glpf_wdeadPix_satPix.mp4', figW);
+fig = fig_show(i_vid, s_vid, st_vid, './output_videos/glpf_wdeadPix_satPix.mp4', figW);
