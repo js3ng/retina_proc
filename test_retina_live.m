@@ -6,7 +6,7 @@ Frames = 50;
 vidSize = [imHeight imWidth];
 
 %%%set model modes%%%
-filtMode = 2; %LPF mode - 1: 4NN average, 2: 9NN average, 3: 9member Gaussian, 4: adjustable Gaussian
+filtMode = 3; %LPF mode - 1: 4NN average, 2: 9NN average, 3: adjustable Gaussian
 sh_mode =  1; %1: LPF, 2: HPF, 3: NF
 enDiv = 0; %partion filtering
 divMode = [4 1; 2 1; 4 1;1 3]; %first col: fMode, second col: shMode
@@ -68,6 +68,9 @@ for ii =1:Frames
          st_in = st_vid;
      end
      figure(1) = fig_show_live(i_f, s_f, st_in);
+     if ii == 30
+         saveas(gcf,'../figs/live_rgbOut_glpf_deadSatpix_noDiv.png')
+     end
 end
 
 clear('cam');

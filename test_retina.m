@@ -11,7 +11,7 @@ nFrames = 150;
 filtMode = 2; %LPF mode - 1: 4NN average, 3: 9NN average, 2: adjustable Gaussian
 sh_mode = 1; %1: LPF, 2: HPF, 3: NF
 enDiv = 1; %partiton filtering
-divMode = [2 1; 2 1; 2 1;1 3]; %first col: fMode, second col: shMode
+divMode = [1 1; 2 2; 3 3;1 3]; %first col: fMode, second col: shMode
 gaussSize = 7;
 std = 2;
 %write out-mode

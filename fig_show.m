@@ -44,6 +44,9 @@ for ii = 2:numFrames
         set(im(3),'cdata',in3(:,:,ii));
     end
     drawnow;
+%     if ii == 30
+%         saveas(gcf,'../figs/rgbOut_allFilt_deadSatpix_Div.png');
+%     end
     if mode == 1
         frame = getframe(gcf);
         writeVideo(v,frame);
